@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nature Gallery</title>
+
+<style>
+
+/* ===== GENERAL ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#134E5E,#71B280);
+    color:white;
+    min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+header{
+    text-align:center;
+    padding:30px;
+}
+
+header h1{
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+header p{
+    opacity:0.9;
+}
+
+/* ===== GALLERY ===== */
+.gallery{
+    padding:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.gallery img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.4s ease;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+    filter:brightness(1.1);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:none;
+    background:rgba(0,0,0,0.95);
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:1000;
+}
+
+.lightbox img{
+    max-width:85%;
+    max-height:70%;
+    border-radius:10px;
+    box-shadow:0 0 25px #fff;
+}
+
+#caption{
+    margin-top:15px;
+    font-size:18px;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:45px;
+    cursor:pointer;
+    color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌿 Nature Gallery</h1>
+    <p>Click on an image to view in Lightbox</p>
+</header>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery">
+
+<img src="https://picsum.photos/id/1018/600/400" alt="Mountain Landscape">
+<img src="https://picsum.photos/id/1022/600/400" alt="Forest Path">
+<img src="https://picsum.photos/id/1036/600/400" alt="Sunset Beach">
+<img src="https://picsum.photos/id/1043/600/400" alt="Waterfall View">
+<img src="https://picsum.photos/id/1056/600/400" alt="Snowy Mountains">
+<img src="https://picsum.photos/id/1069/600/400" alt="River in Forest">
+<img src="https://picsum.photos/id/1074/600/400" alt="Green Valley">
+<img src="https://picsum.photos/id/1084/600/400" alt="Desert Dunes">
+<img src="https://picsum.photos/id/109/600/400" alt="Wild Flowers">
+
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+    <span class="close">&times;</span>
+    <img id="lightboxImg">
+    <p id="caption"></p>
+</div>
+
+<script>
+
+/* ===== LIGHTBOX SCRIPT ===== */
+
+const images = document.querySelectorAll(".gallery img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const caption = document.getElementById("caption");
+const closeBtn = document.querySelector(".close");
+
+images.forEach(img=>{
+    img.addEventListener("click", ()=>{
+        lightbox.style.display="flex";
+        lightboxImg.src = img.src;
+        caption.textContent = img.alt;
+    });
+});
+
+closeBtn.onclick = ()=> lightbox.style.display="none";
+
+lightbox.onclick = (e)=>{
+    if(e.target !== lightboxImg){
+        lightbox.style.display="none";
+    }
+};
+
+</script>
+
+</body>
+</html>
